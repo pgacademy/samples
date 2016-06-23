@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>#canvas { border: solid 1px #ccc; }</style>
+</head>
+<body>
+
+  <canvas id="canvas" width="320" height="568"></canvas>
+
+  <script>
+var randomColor = function() {
+  var r = Math.floor(Math.random() * 256);
+  var g = Math.floor(Math.random() * 256);
+  var b = Math.floor(Math.random() * 256);
+  return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+}
+
+var drawBar = function(x, value, color) {
+
+  var d = value / 100;
+  var currentValue = 0;
+
+  var repaint = function() {
+    context.fillStyle = color;
+    context.fillRect(x, 568 - currentValue, width, currentValue);
+    if (currentValue <= value) {
+      currentValue += d;
+      setInterval(repaint, 20);
+    }
+  };
+
+  repaint();
+};
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+context.fillStyle = '#fff';
+context.fillRect(0, 0, 320, 568);
+
+var margin = 10;
+var scores = [ 49, 80, 68, 100, 91, 34, 77 ];
+var width = (320 - (scores.length + 1) * margin) / scores.length; 
+
+for (var i = 0; i < scores.length; i++) {
+  var x = margin * (i + 1) + width * i;
+  var y = 568 - scores[i] * 5;
+  var color = randomColor();
+  drawBar(x, scores[i] * 3, color);
+}
+
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!--
+<?php
+$data = [];
+
+$rows = $db->query($sql);
+foreach ($rows as $row) {
+  $data[] = [ 
+    'name' => $row['col2'], 
+    'val' => $row['col1'] 
+  ];
+}
+?>
+-->
+
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>D3 Bar Chart</title>
+<style>
+#graph {
+  width: 600px;
+  height: 300px;
+}
+</style>
+
+<div id="graph"></div>
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="flotr2.min.js"></script>
+<script>
+
+$(function() {
+
+  var dataSet = [
+    [1, 1],
+    [2, 6],
+    [3, 5],
+    [4, 2],
+    [5, 4]
+  ];
+
+  var xticks = [
+    [1, '項目A'],
+    [2, '項目B'],
+    [3, '項目C'],
+    [4, '項目D'],
+    [5, '項目E']
+  ];
+
+  Flotr.draw(
+    document.getElementById('graph'), 
+    [ dataSet ], {
+      bars : {
+        show : true,
+        shadowSize : 0,
+        barWidth : 0.5
+      },
+      xaxis: {
+        title: 'alphabet',
+        tickDecimals: 0,
+        ticks: xticks
+      },
+      yaxis: {
+        title: 'num',
+        tickDecimals: 0,
+        min: 0
+      },
+      grid: {
+        horizontalLines: false,
+        verticalLines: false
+      }
+    }
+  );
+
+});
+
+/*
+  var svgW = 300;   //ステージの幅
+  var svgH = 200; //ステージの高さ
+  var xMargin = 50;
+  
+  var svg = d3.select('body')
+    .append('svg') //svg要素をbody要素の中に追加
+    .attr({
+      width: svgW,
+      height: svgH,
+    });
+
+  var scale = d3.scale.linear()
+    .domain([0, d3.max(dataSet, function(d){ return d.val })]) //正規化される値の範囲を指定(0〜valの最大値)
+    .range([0, svgH]);  //出力値の範囲を指定(0〜ステージの高さ)
+
+  var barchart = svg.selectAll('rect')  //rect要素を選択
+    .data(dataSet)  //データセットを束縛
+    .enter()  //データセットの数に対して選択された要素がいくつ足りないかチェック
+    .append('rect') //足りない分のrect要素を追加
+    .attr({
+      x: function(d, i){ return i * 30 + xMargin }, //マージンをグラフに反映
+      y: 0,
+      height: function(d){ return scale(d.val) }, //データの値(val)を正規化してwidth属性に反映
+      width: 20,
+      fill: "blue"
+    });
+
+  var yAxisCall = d3.svg.axis()
+    .scale(scale)   //スケールを適用する
+    .orient('left')   //目盛りの表示位置を左側に指定
+   
+  var yAxis = svg.append('g')
+    .attr({
+      "class": "axis",  //classを指定しておく
+      "transform": "translate(" + [xMargin, 0] + ")" 
+    })
+    .call(yAxisCall); //yAxisCallオブジェクトを適用
+*/
+
+</script>
+
+

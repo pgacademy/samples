@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+
+<canvas id="kana_table" width="170" height="290"></canvas>
+
+<script>
+
+var canvas = document.getElementById("kana_table");
+var context = canvas.getContext("2d");
+
+context.font = "50px sans-serif";
+
+var W = 50;
+var H = 50;
+var MARGIN = 10;
+
+var kana_table = [
+  ['あ', 'い', 'う', 'え', 'お'],
+  ['か', 'き', 'く', 'け', 'こ'],
+  ['さ', 'し', 'す', 'せ', 'そ']
+];
+
+var colors = ["red", "green", "yellow", "blue", "purple"];
+
+var canvas_width = kana_table.length * W + (kana_table.length - 1) * MARGIN;
+var canvas_height = 5 * H + 4 * MARGIN;
+console.log("canvas_width: " + canvas_width);
+
+for (var i = 0; i < kana_table.length; i++) {
+  var x = canvas_width - ((i + 1) * W) - (i * MARGIN);
+  var col = kana_table[i];
+  for (var j = 0; j < col.length; j++) {
+    var ch = col[j];
+    var y = j * (H + MARGIN);
+    context.fillStyle = colors[j % colors.length];
+    context.fillRect(x, y, W, H);
+    context.fillStyle = "#fff";
+    context.fillText(kana_table[i][j], x, y + H - 5);
+  }
+}
+
+canvas.addEventListener('click', function(e) {
+  for (var i = 0; i < kana_table.length; i++) {
+    var x = canvas_width - ((i + 1) * W) - (i * MARGIN);
+    var col = kana_table[i];
+    for (var j = 0; j < col.length; j++) {
+      var ch = col[j];
+      var y = j * (H + MARGIN);
+      context.fillStyle = colors[j % colors.length];
+      context.fillRect(x, y, W, H);
+    }
+  }
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title></title>
+
+<canvas id="canvas" width="320" height="320"></canvas>
+
+<script>
+
+var data = [
+  { x: 0, y: 0 }, // 草原
+  { x: 1, y: 0 }, // 海
+];
+
+var map = [ 1, 1, 0, 0, 0, 0, 1, 1 ];
+
+for (var i = 0; i < map.length; i++) {
+  // 1. map配列のi番目のデータを取得する（0か1がはいっている）
+  // 2. ↑で手に入れた数（0か1）を、chipIdと呼ぶとすると
+  // 3. data配列のchipId番目のデータを取得する（オブジェクト）
+  // 4. そのオブジェクトのxとyを使って、表示するマップチップを選ぶ
+  context.drawImage( /*  */ );
+}
+
+
+</script>
+
+
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+<textarea id="text"></textarea>
+<button id="button">click me</button>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="bililiteRange/bililiteRange.js"></script>
+<script>
+
+$('#button').on('click', function() {
+  var range = bililiteRange(document.getElementById('text'));
+  console.log(range.bounds());
+});
+
+  
+</script>
+
+</body>
+</html>

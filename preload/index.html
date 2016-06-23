@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>preload</title>
+</head>
+<body>
+
+<canvas id="canvas" width="320" height="320"></canvas>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="preload.js"></script>
+<script>
+$(function() {
+
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  var queue = new createjs.LoadQueue();
+
+  queue.on('complete', function() {
+    var neko1 = queue.getResult('neko1');
+    var neko2 = queue.getResult('neko2');
+    console.log(neko1);
+    ctx.drawImage(neko1, 0, 0, 360, 440, 0,   0, 320, 160);
+    ctx.drawImage(neko2, 0, 0,  96, 128, 0, 160, 320, 160);
+  });
+
+  queue.loadManifest([
+    { id: 'neko1', src: 'map-chip.png' },
+    { id: 'neko2', src: 'char-chip.png' },
+  ]);
+
+});
+</script>
+
+</body>
+</html>
+

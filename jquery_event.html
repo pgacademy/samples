@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+#area {
+  position: absolute;
+  left: 100px;
+  top: 300px;
+  width: 200px;
+  height: 200px;
+  background-image: url(https://mituwo320.files.wordpress.com/2015/11/mituwo_01.jpg?w=200&h=);
+  background-size: cover;
+}
+  </style>
+
+</head>
+<body>
+
+  <div id="area">
+  </div>
+
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script>
+$('#menu li').hover(function() {
+  $(this).css('background-color', 'yellow');
+}, function() {
+  $(this).css('background-color', 'white');
+});
+
+$(function() {
+
+  $('#area').on('mouseover', function() {
+    var left = Math.random() * 800;
+    var top = Math.random() * 400;
+    $('#area').animate({
+      left: left,
+      top: top
+    }, 300);
+  });
+
+});
+
+/*
+$('#area').on('mousemove', function(e) {
+  console.log('mousemove x: ' + e.pageX + ' y: ' + e.pageY);
+  if (e.pageX > 110 && e.pageX < 150 && e.pageY > 80 && e.pageY < 110) {
+    alert('にゃ〜');
+  }
+});
+*/
+  </script>
+</body>
+</html>

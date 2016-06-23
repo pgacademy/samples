@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title></title>
+<style>
+.kensyu h1 {
+  border: solid 1px #ccc;
+  font-size: 20px;
+  background-color: #f5f5f5;
+  padding: 5px;
+  margin: 0;
+}
+.kensyu .detail {
+  display: none;
+}
+</style>
+
+<div id="kensyu1" class="kensyu">
+  <h1>研修１の詳細</h1>
+  <div class="detail">
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+    <p>詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細</p>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+$(function() {
+  $('.kensyu h1').on('click', function() {
+    $(this).parent().find('.detail').slideToggle();
+  });
+});
+</script>

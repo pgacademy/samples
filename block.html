@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ぶろっくくずし</title>
+  <style>#canvas { border: solid 1px #ccc }</style>
+</head>
+<body>
+
+  <canvas id="canvas" width="320" height="320"></canvas>
+  <script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+
+    var CANVAS_W = 320;
+    var CANVAS_H = 320;
+    var SPEED = 7;
+    var BAR_W = 50;
+    var BAR_H = 10;
+    var BAR_SPEED = 8;
+    var BLOCK_W = 64;
+    var BLOCK_H = 20;
+
+    var radius = 5;
+    var x = radius + 100;
+    var y = CANVAS_H - 150;
+    var theta = Math.PI / 6;
+
+    var barX = CANVAS_W / 2;
+    var barY = CANVAS_H - 20;
+
+    var block_colors = [ 'red', 'blue', 'green' ];
+
+    var blocks = [
+      [1, 0, 1, 0, 1],
+      [0, 2, 2, 2, 0],
+      [3, 3, 3, 3, 3],
+      [0, 2, 2, 2, 0],
+      [1, 0, 1, 0, 1],
+    ];
+
+    function drawBlocks() {
+      for (var i = 0; i < blocks.length; i++) {
+        var line = blocks[i];
+        for (var j = 0; j < line.length; j++) {
+          var block = line[j];
+          if (block === 0) {
+            continue;
+          }
+          var blockX = BLOCK_W * j;
+          var blockY = BLOCK_H * i;
+          context.fillStyle = block_colors[block - 1];
+          context.fillRect(blockX + 1, blockY + 1, BLOCK_W - 2, BLOCK_H - 2);
+        }
+      }
+    }
+
+    function drawBar() {
+      context.fillStyle = "#000";
+      context.fillRect(barX - BAR_W / 2, barY - BAR_H / 2, BAR_W, BAR_H);
+    }
+
+    function updateBallCoordination() {
+      x += Math.sin(theta) * SPEED;
+      y += Math.cos(theta) * SPEED;
+    }
+
+    function clear() {
+      context.fillStyle = "#fff";
+      context.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    }
+
+    function drawBall() {
+      context.fillStyle = "#000";
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    function checkHit() {
+      for (var i = 0; i < blocks.length; i++) {
+        var line = blocks[i];
+        for (var j = 0; j < line.length; j++) {
+          var block = line[j];
+          if (block === 0) {
+            continue;
+          }
+          var blockX = BLOCK_W * j;
+          var blockY = BLOCK_H * i;
+          var hit = 
+            x + radius >= blockX &&
+            x - radius <= blockX + BLOCK_W &&
+            y - radius <= blockY + BLOCK_H &&
+            y >= blockY + BLOCK_H / 2;
+          if (hit) {
+            blocks[i][j] = 0;
+          }
+        }
+      }
+    }
+
+    function nextTheta(targetX, targetY) {
+      
+
+    }
+
+    var mainLoop = setInterval(function() {
+
+      outside:
+      for (var i = 0; i < blocks.length; i++) {
+        var line = blocks[i];
+        for (var j = 0; j < line.length; j++) {
+          var block = line[j];
+          if (block === 0) {
+            continue;
+          }
+          var blockX = BLOCK_W * j;
+          var blockY = BLOCK_H * i;
+          var hit =
+            x + radius >= blockX &&
+            x - radius <= blockX + BLOCK_W &&
+            y - radius <= blockY + BLOCK_H &&
+            y >= blockY + BLOCK_H / 2;
+          if (hit) {
+            blocks[i][j] = 0;
+            break;
+          }
+        }
+      }
+
+      var recieved = 
+        x >= barX - BAR_W / 2 &&
+        x <= barX + BAR_W / 2 &&
+        y >= barY - BAR_H / 2 - radius &&
+        y <= barY;
+
+      if (y + radius > CANVAS_H) {
+        clearInterval(mainLoop);
+        alert("game over");
+      }
+
+      if (y - radius < 0) {
+        theta = Math.PI - theta;
+      }
+
+      if (x + radius > CANVAS_W || x - radius < 0) {
+        theta = Math.PI * 2 - theta;
+      }
+
+      if (recieved) {
+        var distance = Math.sqrt(Math.pow(x - barX, 2) + Math.pow(y - barY, 2));
+        theta = Math.asin(Math.abs(y - barY) / distance) + Math.PI;
+      }
+
+      if (hit) {
+        theta = Math.PI - theta;
+      }
+
+      updateBallCoordination();
+      clear();
+      drawBlocks();
+      drawBall();
+      drawBar();
+
+    }, 20);
+
+    function moveBarL() {
+      barX -= BAR_SPEED;
+    }
+    function moveBarR() {
+      barX += BAR_SPEED;
+    }
+    var moveBarLInterval = null;
+    var moveBarRInterval = null;
+
+    document.onkeydown = function(e) {
+      switch (e.keyCode) {
+        case 37:
+          if (moveBarLInterval == null) {
+            moveBarLInterval = setInterval(moveBarL, 20);
+          }
+          break;
+        case 39:
+          if (moveBarRInterval == null) {
+            moveBarRInterval = setInterval(moveBarR, 20);
+          }
+          break;
+      }
+    };
+
+    document.onkeyup = function(e) {
+      switch (e.keyCode) {
+        case 37:
+          clearInterval(moveBarLInterval);
+          moveBarLInterval = null;
+          break;
+        case 39:
+          clearInterval(moveBarRInterval);
+          moveBarRInterval = null;
+          break;
+      }
+    };
+
+
+
+
+  </script>
+
+</body>
+</html>

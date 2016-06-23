@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+
+<input class="detect_changing" type="text" name="name" value="160">
+
+<button id="check_button">check</button>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+$(function() {
+/*
+  $('.detect_changing').on('change', function(e) {
+    console.log('changed');
+  });
+*/
+  $('#check_button').on('click', function() {
+    var input = $('[name=name]');
+    if ( input.val().match(/\.pdf$/) ) {
+      alert('.pdfでおわってるよ');
+    }
+  });
+
+
+});
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+#table {
+  border-collapse: collapse;
+}
+#table .table_header {
+  background-color: #fff;
+}
+#table tr th,
+#table tr td {
+  border: solid 1px #ccc;
+  padding: 5px 10px;
+}
+
+#table th:nth-child(1),
+#table td:nth-child(1) {
+  width: 100px;
+}
+
+#table th:nth-child(2),
+#table td:nth-child(2) {
+  width: 300px;  
+}
+
+#table th:nth-child(3),
+#table td:nth-child(3) {
+  width: 150px;
+}
+
+
+
+  </style>
+
+</head>
+<body>
+
+<h1>てーぶるへっだのてすと</h1>
+<p>テーブルヘッダが固定されるサンプル</p>
+
+<table id="table">
+  <tr class="table_header">
+    <th>名前</th>
+    <th>住所</th>
+    <th>電話番号</th>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>奈良県橿原市新賀町232</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>あああ</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>いいい</td>
+    <td>090-0000-0000</td>
+  </tr>
+  <tr>
+    <td>ほげほげ太</td>
+    <td>ううう</td>
+    <td>090-0000-0000</td>
+  </tr>
+</table>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+$(function() {
+  var header = $('.table_header');
+  var defaultHeaderOffset = header.offset().top;
+  $(window).on('scroll', function(e) {
+    if ($(window).scrollTop() >= defaultHeaderOffset) {
+      header.css({
+        'position': 'fixed',
+        'top': 0
+      });
+    } else {
+      header.css('position', 'static');
+    }
+  });
+
+});
+</script>
+
+
+</body>
+</html>
