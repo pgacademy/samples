@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title></title>
+
+<canvas id="canvas" width="320" height="320"></canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+var image = new Image();
+image.src = "dice.png";
+image.onload = function() {
+  //context.drawImage(image, 0, 0, 200, 200, 60, 60, 200, 200);
+  
+  var shuffle = function() {
+    // 呼び出すごとに、表示する画像がかわる。
+    // 1回目は(0, 200), 2回目は(200, 200), 3回目は(400, 200)...
+  };
+  setInterval(shuffle, 50);
+
+};
+
+</script>
+

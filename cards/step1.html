@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title></title>
+<style>canvas { border: solid 1px #ccc; }</style>
+
+<canvas id="canvas" width="320" height="320"></canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+var image = new Image();
+image.src = "cards.png";
+image.onload = function() {
+
+  var count = 0;
+  var deal = function() {
+    x = count * (32 + 16) + 48;
+    context.drawImage(image, 14 * 32, 2 * 64, 32, 64, x, 128, 32, 64);
+    count++;
+    if (count < 5) {
+      setTimeout(deal, 500);
+    }
+  };
+
+  setTimeout(deal, 500);
+};
+
+</script>
+
