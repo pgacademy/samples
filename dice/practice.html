@@ -14,15 +14,9 @@ var image = new Image();
 image.src = "dice.png";
 image.onload = function() {
 
-  var i = 0;
-
   var shuffle = function() {
     // 呼び出すごとに、表示する画像がかわる。
     // 1回目は(0, 200), 2回目は(200, 200), 3回目は(400, 200)...
-    x = (i % 5) * 200;
-    context.clearRect(0, 0, 320, 320);
-    context.drawImage(image, x, 200, 200, 200, 60, 60, 200, 200);
-    i++;
   };
   setInterval(shuffle, 50);
 

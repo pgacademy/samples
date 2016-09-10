@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>しんけいすいじゃく</title>
+
+
+<canvas id="canvas" width="640" height="320"></canvas>
+
+<script>
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+var nextCard = (function() {
+
+  // create cards
+  var cards = [];
+  for (var num = 0; num < 13; num++) {
+    for (var mark = 0; mark < 4; mark++) {
+      cards.push({ num: num + 1, mark: mark });
+    }
+  }
+
+  // shuffle cards
+  for (var i = 0; i < cards.length; i++) {
+    var swapIndex = Math.floor(Math.random() * cards.length);
+    var tmp = cards[i];
+    cards[i] = cards[swapIndex];
+    cards[swapIndex] = tmp;
+  }
+
+  return function() {
+    return cards.shift();
+  };
+  
+})();
+
+var drawCard = function(srcX, srcY, destX, destY) {
+  context.drawImage(image, srcX * 32, srcY * 64, 32, 64, destX, destY, 32, 64);
+};
+
+var drawDownCard = function(destX, destY) {
+  drawCard(14, 2);
+};
+
+var field = [];
+for (var v = 0; v < 4; v++) {
+  field[v] = [];
+  for (var h = 0; h < 13; h++) {
+    field[v].push(nextCard());
+    drawCard
+
+  }
+}
+
+
+
+
+</script>
+

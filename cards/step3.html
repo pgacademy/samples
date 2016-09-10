@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title></title>
+<style>canvas { border: solid 1px #ccc; }</style>
+
+<canvas id="canvas" width="320" height="320"></canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+var image = new Image();
+image.src = "cards.png";
+image.onload = function() {
+
+  var dealParent = function() {
+    drawCard(14 * 32, 2 * 64, 144, 16);
+    setTimeout(openParent, 500);
+  };
+
+  var openParent = function() {
+    var card = nextCard();
+    drawCard(card.num * 32, card.mark * 64, 144, 16);
+  };
+
+  var count = 0;
+
+  var deal = function() {
+    x = count * (32 + 16) + 48;
+    context.drawImage(image, 14 * 32, 2 * 64, 32, 64, x, 128, 32, 64);
+    count++;
+    setTimeout(count < 5 ? deal : dealParent, 500);
+  };
+  setTimeout(deal, 500);
+};
+
+var drawCard = function(srcX, srcY, destX, destY) {
+  context.drawImage(image, srcX, srcY, 32, 64, destX, destY, 32, 64);
+};
+
+var nextCard = (function() {
+
+  // create cards
+  var cards = [];
+  for (var num = 0; num < 13; num++) {
+    for (var mark = 0; mark < 4; mark++) {
+      cards.push({ num: num, mark: mark });
+    }
+  }
+
+  // shuffle cards
+  for (var i = 0; i < cards.length; i++) {
+    var swapIndex = Math.floor(Math.random() * cards.length);
+    var tmp = cards[i];
+    cards[i] = cards[swapIndex];
+    cards[swapIndex] = tmp;
+  }
+
+  return function() {
+    return cards.shift();
+  };
+  
+})();
+
+</script>
+
