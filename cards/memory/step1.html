@@ -17,7 +17,7 @@ var nextCard = (function() {
   var cards = [];
   for (var num = 0; num < 13; num++) {
     for (var mark = 0; mark < 4; mark++) {
-      cards.push({ num: num + 1, mark: mark });
+      cards.push({ num: num, mark: mark });
     }
   }
 
@@ -35,23 +35,56 @@ var nextCard = (function() {
   
 })();
 
-var drawCard = function(srcX, srcY, destX, destY) {
-  context.drawImage(image, srcX * 32, srcY * 64, 32, 64, destX, destY, 32, 64);
-};
+var DOWN_CARD = { num: 14, mark: 2 };
 
-var drawDownCard = function(destX, destY) {
-  drawCard(14, 2);
-};
 
-var field = [];
-for (var v = 0; v < 4; v++) {
-  field[v] = [];
-  for (var h = 0; h < 13; h++) {
-    field[v].push(nextCard());
-    drawCard
+var image = new Image();
+image.src = "cards.png";
+image.onload = function() {
 
+  var drawCard = function(card, x, y) {
+    context.drawImage(image, card.num * 32, card.mark * 64, 32, 64, x * 32, y * 64, 32, 64);
+  };
+
+  var syncAnimate = function() {
+
+  };
+
+  var field = [];
+  for (var y = 0; y < 4; y++) {
+    field[y] = [];
+    for (var x = 0; x < 13; x++) {
+      field[y].push(nextCard());
+      drawCard(DOWN_CARD, x, y);
+    }
   }
-}
+
+  var firstCard = null;
+
+  canvas.onmousedown = function(e) {
+    var x = Math.floor(e.pageX / 32);
+    var y = Math.floor(e.pageY / 64);
+    var card = field[y][x];
+    drawCard(field[y][x], x, y);
+    if (firstCard) {
+      // 1枚目と同じカードであれば、めくったことにならない
+      if (firstCard === card) {
+        return;
+      }
+      if (firstCard.num === card.num) {
+
+      } else {
+        setTimeout(function() {
+          closeCard(firstCard);
+          closeCard(card);
+        }, 1000);
+      }
+    } else {
+      firstCard = card;
+    }
+  };
+
+};
 
 
 
