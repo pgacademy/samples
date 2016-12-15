@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>create map step1</title>
+<style>#canvas { border: solid 1px #ccc }</style>
+
+<canvas id="canvas" width="320px" height="320px"></canvas>
+
+<script>
+
+// extra_001 フォルダを作成
+// extra_001/images フォルダを作成
+// images/exercise_canvas_013_03/map-chip.png を、extra_001/images/map-chip.png にコピー
+// extra_001/step1.html を作成
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+
+var image = new Image();
+image.src = 'images/map-chip.png';
+image.onload = function() {
+  context.drawImage(image, 0, 0, 40, 40, 0, 0, 40, 40);
+};
+
+</script>

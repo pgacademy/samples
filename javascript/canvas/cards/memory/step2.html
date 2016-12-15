@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>しんけいすいじゃく</title>
+
+
+<canvas id="canvas" width="640" height="320"></canvas>
+
+<script>
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+var nextCard = (function() {
+
+  // create cards
+  var cards = [];
+  for (var num = 0; num < 13; num++) {
+    for (var mark = 0; mark < 4; mark++) {
+      cards.push({ num: num, mark: mark });
+    }
+  }
+
+  // shuffle cards
+  for (var i = 0; i < cards.length; i++) {
+    var swapIndex = Math.floor(Math.random() * cards.length);
+    var tmp = cards[i];
+    cards[i] = cards[swapIndex];
+    cards[swapIndex] = tmp;
+  }
+
+  return function() {
+    return cards.shift();
+  };
+  
+})();
+
+// cardAt(x, y) で指定した位置に置かれたcardオブジェクトを返す
+var cardAt = (function() {
+
+  var field = [];
+
+  for (var y = 0; y < 4; y++) {
+    field[y] = [];
+    for (var x = 0; x < 13; x++) {
+      field[y].push(nextCard());
+    }
+  }
+
+  return function(x, y) {
+    return field[y][x];
+  };
+})();
+
+var DOWN_CARD = { num: 14, mark: 2 };
+
+var canOpen = false;
+
+var image = new Image();
+image.src = "cards.png";
+image.onload = function() {
+
+  var drawCard = function(card, x, y) {
+    context.drawImage(image, card.num * 32, card.mark * 64, 32, 64, x * 32, y * 64, 32, 64);
+  };
+
+  for (var y = 0; y < 4; y++) {
+    for (var x = 0; x < 13; x++) {
+      setTimeout((function(x, y) {
+        return function() {
+          drawCard(DOWN_CARD, x, y);
+        }
+      })(x, y), x * 20 + y * 260); 
+    }
+  }
+
+  var firstCard = null;
+
+  canvas.onmousedown = function(e) {
+    var x = Math.floor(e.pageX / 32);
+    var y = Math.floor(e.pageY / 64);
+    var card = field[y][x];
+    drawCard(field[y][x], x, y);
+    if (firstCard) {
+      // 1枚目と同じカードであれば、めくったことにならない
+      if (firstCard === card) {
+        return;
+      }
+      if (firstCard.num === card.num) {
+
+      } else {
+        setTimeout(function() {
+          closeCard(firstCard);
+          closeCard(card);
+        }, 1000);
+      }
+    } else {
+      firstCard = card;
+    }
+  };
+
+};
+
+
+
+
+</script>
+
