@@ -1,0 +1,58 @@
+<meta charset="utf-8">
+
+<ul id="list">
+</ul>
+
+<div id="form">
+  <p class="record">
+    <input type="text" name="name">
+    <input type="number" name="num" size="4">
+    <input type="button" value="確定">
+  </p>
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+var items = [
+  { label: "支柱1", code: "sityu", value: "1" },
+  { label: "支柱2", code: "sityu", value: "2" },
+  { label: "支柱3", code: "sityu", value: "3" },
+  { label: "手すり1", code: "tesuri", value: "4" },
+  { label: "手すり2", code: "tesuri", value: "5" },
+  { label: "手すり3", code: "tesuri", value: "6" },
+  { label: "アンダーベース1", code: "anda-", value: "7" },
+  { label: "アンダーベース2", code: "anda-", value: "8" },
+  { label: "アンダーベース3", code: "anda-", value: "9" },
+];
+
+$("[name=name]").autocomplete({
+  source: function(req, res) {
+    res(items.filter(function(i) {
+      return i.code.match(req.term);
+    }));
+  },
+  focus: function(e, ui) {
+    $(e.target).val(ui.item.label);
+    return false;
+  },
+  select: function(e, ui) {
+    $(e.target).val(ui.item.label).parent().find("[name=num]").focus();
+    return false;
+  }
+});
+$("[type=button]").on("click", function() {
+
+  var parent = $(this).parent();
+  var name = parent.find("[name=name]").val();
+  var num = parent.find("[name=num]").val();
+  $("#list").append($("<li>").text(name + ": " + num + "個").append($("<a>").text("x").attr("href", "#").addClass("delete")));
+  parent.find("[name=name]").val("").focus();
+  parent.find("[name=num]").val("");
+  alert("とうろく！");
+});
+$("#list").on("click", "a.delete", function() {
+  $(this).closest("li").fadeOut();
+})
+</script>
